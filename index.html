@@ -860,6 +860,344 @@ to{transform:translateX(100%)}
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
  .reveal{opacity:1;transform:none}
 }
+   /* ==========================================
+   HAVEN ESTATES — SEARCH BAR FIX
+   ========================================== */
+
+.search-wrap {
+  position: relative;
+  z-index: 5;
+  padding: 0;
+  background: #10100e;
+  border-top: 1px solid rgba(215, 184, 120, 0.18);
+  border-bottom: 1px solid rgba(215, 184, 120, 0.18);
+}
+
+.search-bar {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr auto;
+  align-items: stretch;
+  gap: 0;
+  padding: 25px 0;
+}
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 4px 22px;
+  border-right: 1px solid rgba(215, 184, 120, 0.2);
+}
+
+.search-field:first-child {
+  padding-left: 0;
+}
+
+.search-field label {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  color: #d7b878;
+  font-family: var(--sans);
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.search-field input,
+.search-field select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 25px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: #f4efe5;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: none;
+}
+
+.search-field input::placeholder {
+  color: #88857c;
+  opacity: 1;
+}
+
+.search-field select {
+  cursor: pointer;
+  color-scheme: dark;
+}
+
+.search-field select option {
+  background: #10100e;
+  color: #f4efe5;
+}
+
+.search-field input:focus,
+.search-field select:focus {
+  outline: none;
+}
+
+.search-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  align-self: stretch;
+  min-height: 62px;
+  margin: 0 0 0 22px;
+  padding: 0 24px;
+  white-space: nowrap;
+}
+
+/* Tablet layout */
+@media (max-width: 900px) {
+  .search-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 0;
+    padding: 23px 0;
+  }
+
+  .search-field {
+    padding: 5px 18px;
+  }
+
+  .search-field:first-child {
+    padding-left: 0;
+  }
+
+  .search-field:nth-child(2) {
+    border-right: none;
+  }
+
+  .search-field:nth-child(3) {
+    padding-left: 0;
+  }
+
+  .search-submit {
+    grid-column: 1 / -1;
+    min-height: 52px;
+    margin: 5px 0 0;
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 480px) {
+  .search-bar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 10px 0 18px;
+  }
+
+  .search-field,
+  .search-field:first-child,
+  .search-field:nth-child(3) {
+    padding: 14px 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(215, 184, 120, 0.14);
+  }
+
+  .search-field label {
+    margin-bottom: 8px;
+    font-size: 9px;
+  }
+
+  .search-field input,
+  .search-field select {
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .search-submit {
+    grid-column: auto;
+    width: 100%;
+    min-height: 52px;
+    margin-top: 17px;
+    font-size: 10px;
+  }
+}
+   /* ==========================================
+   HAVEN ESTATES — STABLE PROPERTY CARDS
+   ========================================== */
+
+/* Keep the property grid in a stable layout */
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 22px;
+  overflow: visible;
+}
+
+.property-card {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  transform: none !important;
+  transform-style: flat !important;
+  perspective: none !important;
+  will-change: auto !important;
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 0.35s ease;
+}
+
+.property-card:hover {
+  transform: none !important;
+}
+
+.property-image {
+  position: relative;
+  width: 100%;
+  height: 285px;
+  overflow: hidden;
+}
+
+.property-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.8s ease, filter 0.8s ease;
+}
+
+.property-card:hover .property-image img {
+  transform: scale(1.045);
+}
+
+.property-info {
+  position: relative;
+  background: #11110f;
+}
+
+/* Cursor glow: follows the pointer without blocking anything */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(215, 184, 120, 0.10) 0%,
+    rgba(215, 184, 120, 0.035) 38%,
+    transparent 72%
+  );
+  pointer-events: none !important;
+  z-index: 2;
+  opacity: 0.8;
+  will-change: left, top;
+}
+
+/* Keep decorative layers from intercepting clicks */
+#particles,
+#ambient,
+#heroLight {
+  pointer-events: none !important;
+}
+
+#particles {
+  z-index: 2;
+}
+
+/* Floating gold bubbles */
+.bubble {
+  position: fixed;
+  z-index: 999;
+  display: block;
+  pointer-events: none;
+  border: 1px solid rgba(215, 184, 120, 0.7);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 240, 200, 0.45),
+    rgba(215, 184, 120, 0.08) 65%,
+    transparent
+  );
+  box-shadow: 0 0 12px rgba(215, 184, 120, 0.12);
+  animation: goldBubbleFloat var(--dur, 1.5s) ease-out forwards;
+}
+
+@keyframes goldBubbleFloat {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0) scale(0.45);
+  }
+
+  18% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift, 20px), -65px, 0) scale(1.25);
+  }
+}
+
+/* Small gold ripple when clicking */
+.ripple {
+  position: fixed;
+  z-index: 998;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(215, 184, 120, 0.75);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.2);
+  animation: goldRipple 0.8s ease-out forwards;
+}
+
+@keyframes goldRipple {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.5);
+  }
+}
+
+/* Responsive cards */
+@media (max-width: 900px) {
+  .property-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .property-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .property-image {
+    height: 260px;
+  }
+
+  .cursor-glow {
+    display: none;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .property-card,
+  .property-card:hover {
+    transform: none !important;
+  }
+}
 </style>
 </head>
 <body class="locked">
