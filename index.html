@@ -1518,55 +1518,50 @@ to{transform:translateX(100%)}
     revealItems.forEach(el => el.classList.add("visible"));
   }
 
-  // Mouse-following light and property card tilt
-  const glow = $("#cursorGlow");
-  const heroLight = $("#heroLight");
+  
+ // Cursor glow — smooth movement without transforming property cards.
+const glow = document.querySelector("#cursorGlow");
+const heroLight = document.querySelector("#heroLight");
 
-  if (!coarsePointer && !reduceMotion) {
-    let mx = innerWidth / 2;
-    let my = innerHeight / 2;
-    let gx = mx;
-    let gy = my;
+if (glow && !coarsePointer && !reduceMotion) {
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let currentX = mouseX;
+  let currentY = mouseY;
 
-    window.addEventListener("pointermove", e => {
-      mx = e.clientX;
-      my = e.clientY;
-    }, { passive: true });
+  window.addEventListener("pointermove", event => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+  }, { passive: true });
 
-    const follow = () => {
-      gx += (mx - gx) * 0.12;
-      gy += (my - gy) * 0.12;
+  function animateCursorGlow() {
+    currentX += (mouseX - currentX) * 0.16;
+    currentY += (mouseY - currentY) * 0.16;
 
-      glow.style.transform =
-        `translate(${gx}px,${gy}px) translate(-50%,-50%)`;
+    glow.style.left = currentX + "px";
+    glow.style.top = currentY + "px";
 
-      if (heroLight) {
-        heroLight.style.background =
-          `radial-gradient(ellipse 380px 320px at ${mx}px ${my}px, rgba(215,184,120,.14), transparent 72%)`;
-      }
-
-      requestAnimationFrame(follow);
-    };
-
-    requestAnimationFrame(follow);
-
-    $$(".property-card").forEach(card => {
-      card.addEventListener("pointermove", e => {
-        if (e.pointerType !== "mouse") return;
-
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width;
-        const y = (e.clientY - r.top) / r.height;
-
-        card.style.transform =
-          `perspective(1000px) rotateX(${(0.5-y)*3.5}deg) rotateY(${(x-.5)*4}deg) translateY(-3px)`;
-      });
-
-      card.addEventListener("pointerleave", () => {
-        card.style.transform = "";
-      });
-    });
+    requestAnimationFrame(animateCursorGlow);
   }
+
+  requestAnimationFrame(animateCursorGlow);
+
+  // Soft lighting is only applied to the hero.
+  window.addEventListener("pointermove", event => {
+    if (!heroLight) return;
+
+    const rect = heroLight.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    heroLight.style.background =
+      `radial-gradient(
+        circle 300px at ${x}px ${y}px,
+        rgba(215,184,120,0.12),
+        transparent 72%
+      )`;
+  }, { passive: true });
+}
 
   // Floating gold particles
   const canvas = $("#particles");
