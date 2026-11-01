@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080807">
+<meta name="description" content="Haven Estates — exceptional properties for extraordinary living. Discover considered luxury homes, villas and private residences.">
+<title>Haven Estates — Find Your Extraordinary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--black:#080807;
+--panel:#11110f;
+--panel2:#171713;
+--gold:#d7b878;
+--gold2:#f3dfb0;
+--cream:#f4efe5;
+--muted:#aaa69b;
+--line:rgba(215,184,120,.22);
+--serif:"Playfair Display",Georgia,serif;
+--sans:"DM Sans",Arial,sans-serif;
+--ease:cubic-bezier(.22,.8,.22,1)
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{
+scroll-behavior:smooth;
+scroll-padding-top:90px
+}
+
+body{
+background:var(--black);
+color:var(--cream);
+font-family:var(--sans);
+overflow-x:hidden;
+line-height:1.6
+}
+
+body.locked{overflow:hidden}
+
+a{color:inherit;text-decoration:none}
+
+button,input,select{font:inherit}
+
+button,a{-webkit-tap-highlight-color:transparent}
+
+button{color:inherit}
+
+::selection{
+background:var(--gold);
+color:var(--black)
+}
+
+img{
+display:block;
+width:100%;
+height:100%;
+object-fit:cover
+}
+
+.wrap{
+width:min(1220px,calc(100% - 48px));
+margin-inline:auto
+}
+
+.eyebrow{
+display:flex;
+align-items:center;
+gap:12px;
+color:var(--gold);
+font-size:.68rem;
+font-weight:600;
+letter-spacing:.24em;
+text-transform:uppercase
+}
+
+.eyebrow:before{
+content:"";
+width:30px;
+height:1px;
+background:var(--gold)
+}
+
+.section{
+padding:112px 0;
+position:relative
+}
+
+.section-head{
+display:flex;
+justify-content:space-between;
+align-items:end;
+gap:28px;
+margin-bottom:42px
+}
+
+.section-title{
+font:400 clamp(2.2rem,4.2vw,4.2rem)/1.12 var(--serif);
+letter-spacing:-.035em;
+margin-top:17px;
+max-width:720px
+}
+
+.section-title em{
+font-weight:400;
+color:var(--gold)
+}
+
+.section-copy{
+max-width:440px;
+color:var(--muted);
+font-size:.94rem
+}
+
+/* Premium animated buttons */
+
+.btn{
+position:relative;
+isolation:isolate;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:15px;
+padding:15px 22px;
+border:1px solid var(--line);
+background:transparent;
+color:var(--cream);
+font-size:.72rem;
+font-weight:600;
+letter-spacing:.13em;
+text-transform:uppercase;
+overflow:hidden;
+transition:color .35s,border-color .35s,transform .25s var(--ease);
+cursor:pointer
+}
+
+.btn:before{
+content:"";
+position:absolute;
+z-index:-1;
+inset:0;
+background:var(--gold);
+transform:translateY(102%);
+transition:transform .4s var(--ease)
+}
+
+.btn:hover{
+color:var(--black);
+border-color:var(--gold)
+}
+
+.btn:hover:before{transform:translateY(0)}
+
+.btn .arrow{
+font-size:1.1rem;
+transition:transform .3s
+}
+
+.btn:hover .arrow{transform:translateX(4px)}
+
+.btn-gold{
+background:var(--gold);
+color:var(--black);
+border-color:var(--gold)
+}
+
+.btn-gold:before{background:var(--cream)}
+
+.btn-gold:hover{color:var(--black)}
+
+/* =========================================
+   LUXURY HOUSE LOADING EXPERIENCE
+========================================= */
+
+.loader{
+position:fixed;
+inset:0;
+z-index:9999;
+display:grid;
+place-items:center;
+background:#070706;
+overflow:hidden;
+transition:opacity .85s var(--ease),visibility .85s
+}
+
+.loader.done{
+opacity:0;
+visibility:hidden;
+pointer-events:none
+}
+
+.loader:before,
+.loader:after{
+content:"";
+position:absolute;
+border:1px solid rgba(215,184,120,.1);
+border-radius:50%;
+width:min(75vw,800px);
+aspect-ratio:1;
+animation:orbit 18s linear infinite
+}
+
+.loader:after{
+width:min(52vw,540px);
+animation-direction:reverse;
+animation-duration:13s
+}
+
+.loader-grain{
+position:absolute;
+inset:0;
+opacity:.18;
+background-image:radial-gradient(
+rgba(255,255,255,.45) .5px,
+transparent .7px
+);
+background-size:5px 5px;
+mask-image:linear-gradient(transparent,#000,transparent)
+}
+
+.loader-inner{
+position:relative;
+z-index:2;
+width:min(500px,88vw);
+text-align:center
+}
+
+.loader-house{
+width:min(330px,72vw);
+height:auto;
+margin:0 auto 5px;
+overflow:visible;
+filter:drop-shadow(0 0 24px rgba(215,184,120,.16))
+}
+
+.house-line{
+fill:none;
+stroke:var(--gold2);
+stroke-width:1.25;
+stroke-dasharray:800;
+stroke-dashoffset:800;
+animation:drawHouse 2.5s .25s var(--ease) forwards
+}
+
+.house-glow{
+fill:none;
+stroke:var(--gold);
+stroke-width:4;
+opacity:.12;
+filter:blur(5px)
+}
+
+.loader-brand{
+font:400 clamp(1.65rem,5vw,2.5rem)/1.2 var(--serif);
+letter-spacing:.2em;
+margin-top:10px
+}
+
+.loader-sub{
+color:var(--muted);
+font-size:.61rem;
+letter-spacing:.3em;
+text-transform:uppercase;
+margin-top:14px
+}
+
+.loader-bottom{
+width:min(350px,80%);
+margin:43px auto 0
+}
+
+.loader-status{
+display:flex;
+justify-content:space-between;
+color:var(--gold);
+font-size:.62rem;
+letter-spacing:.2em;
+text-transform:uppercase;
+margin-bottom:10px
+}
+
+.loader-track{
+height:1px;
+background:rgba(215,184,120,.18);
+overflow:hidden
+}
+
+.loader-progress{
+height:100%;
+width:0;
+background:linear-gradient(90deg,#8f6b32,var(--gold2));
+box-shadow:0 0 15px var(--gold);
+transition:width .15s linear
+}
+
+@keyframes drawHouse{
+to{stroke-dashoffset:0}
+}
+
+@keyframes orbit{
+to{transform:rotate(360deg)}
+}
+
+/* =========================================
+   INTERACTIVE CURSOR & TOUCH EFFECTS
+========================================= */
+
+#ambient{
+position:fixed;
+inset:0;
+z-index:20;
+pointer-events:none;
+opacity:.8
+}
+
+.cursor-glow{
+position:fixed;
+left:0;
+top:0;
+width:340px;
+height:340px;
+border-radius:50%;
+pointer-events:none;
+z-index:1;
+background:radial-gradient(
+circle,
+rgba(215,184,120,.085),
+rgba(215,184,120,.025) 36%,
+transparent 70%
+);
+transform:translate(-50%,-50%);
+will-change:transform
+}
+
+#particles{
+position:fixed;
+inset:0;
+z-index:1;
+pointer-events:none;
+opacity:.55
+}
+
+.ripple{
+position:fixed;
+width:12px;
+height:12px;
+border:1px solid rgba(243,223,176,.85);
+border-radius:50%;
+z-index:999;
+pointer-events:none;
+animation:rippleOut .8s ease-out forwards;
+box-shadow:0 0 16px rgba(215,184,120,.18)
+}
+
+@keyframes rippleOut{
+to{
+width:150px;
+height:150px;
+opacity:0;
+transform:translate(-69px,-69px)
+}
+}
+
+.bubble{
+position:fixed;
+z-index:999;
+pointer-events:none;
+border:1px solid rgba(243,223,176,.55);
+border-radius:50%;
+background:radial-gradient(
+circle at 30% 25%,
+rgba(255,244,214,.22),
+rgba(215,184,120,.035) 55%,
+transparent 70%
+);
+box-shadow:
+inset -3px -4px 8px rgba(215,184,120,.1),
+0 0 15px rgba(215,184,120,.07);
+animation:bubbleRise var(--dur,1.6s) ease-out forwards
+}
+
+@keyframes bubbleRise{
+0%{
+opacity:0;
+transform:translate3d(0,8px,0) scale(.3)
+}
+15%{opacity:.8}
+100%{
+opacity:0;
+transform:translate3d(var(--drift,12px),-100px,0) scale(1.1)
+}
+}
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.site-header{
+position:fixed;
+z-index:100;
+top:0;
+left:0;
+width:100%;
+padding:23px 0;
+border-bottom:1px solid transparent;
+transition:padding .35s,background .35s,border-color .35s
+}
+
+.site-header.scrolled{
+padding:13px 0;
+background:rgba(8,8,7,.88);
+backdrop-filter:blur(18px);
+border-color:rgba(215,184,120,.13)
+}
+
+.nav{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:24px
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:11px;
+flex-shrink:0
+}
+
+.brand-mark{
+width:37px;
+height:37px;
+display:grid;
+place-items:center;
+border:1px solid var(--gold);
+color:var(--gold);
+font:1.3rem var(--serif);
+transform:rotate(45deg)
+}
+
+.brand-mark span{transform:rotate(-45deg)}
+
+.brand-text{
+display:flex;
+flex-direction:column;
+font:1rem var(--serif);
+letter-spacing:.19em;
+line-height:1.2
+}
+
+.brand-text small{
+font:500 .48rem var(--sans);
+letter-spacing:.25em;
+color:var(--gold);
+margin-top:5px
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:30px
+}
+
+.nav-links a{
+font-size:.7rem;
+color:#d3cfc5;
+letter-spacing:.06em;
+transition:color .25s
+}
+
+.nav-links a:hover{color:var(--gold)}
+
+.nav-actions{
+display:flex;
+align-items:center;
+gap:14px
+}
+
+.nav-cta{
+padding:12px 16px;
+font-size:.64rem
+}
+
+.menu-toggle{
+display:none;
+width:44px;
+height:44px;
+background:transparent;
+border:1px solid var(--line);
+cursor:pointer
+}
+
+.menu-toggle span{
+display:block;
+width:18px;
+height:1px;
+background:var(--gold);
+margin:5px auto;
+transition:transform .3s
+}
+
+.mobile-panel{display:none}
+
+/* =========================================
+   HERO SECTION
+========================================= */
+
+.hero{
+min-height:780px;
+height:100svh;
+max-height:1050px;
+position:relative;
+display:flex;
+align-items:center;
+overflow:hidden;
+background:#10100e
+}
+
+.hero-image{
+position:absolute;
+inset:0;
+overflow:hidden
+}
+
+.hero-image img{
+object-position:center 55%;
+transform:scale(1.08);
+animation:heroZoom 2.2s 1s var(--ease) forwards;
+filter:brightness(.58) saturate(.72)
+}
+
+.hero-image:after{
+content:"";
+position:absolute;
+inset:0;
+background:
+linear-gradient(
+90deg,
+rgba(5,5,4,.86) 0%,
+rgba(5,5,4,.57) 44%,
+rgba(5,5,4,.12) 100%
+),
+linear-gradient(
+0deg,
+var(--black) 0%,
+transparent 36%,
+rgba(0,0,0,.2) 100%
+)
+}
+
+.hero-light{
+position:absolute;
+inset:-30%;
+background:radial-gradient(
+ellipse at 70% 38%,
+rgba(215,184,120,.13),
+transparent 30%
+);
+mix-blend-mode:screen;
+pointer-events:none
+}
+
+.hero-content{
+position:relative;
+z-index:3;
+padding-top:90px;
+max-width:850px
+}
+
+.hero .eyebrow{
+opacity:0;
+animation:riseIn .8s 1.25s forwards
+}
+
+.hero h1{
+font:400 clamp(3.4rem,8.5vw,7.8rem)/.99 var(--serif);
+letter-spacing:-.055em;
+margin:28px 0;
+max-width:900px
+}
+
+.hero h1 .line{
+display:block;
+overflow:hidden;
+padding-bottom:.08em
+}
+
+.hero h1 .line span{
+display:block;
+transform:translateY(115%);
+animation:textUp 1s var(--ease) forwards
+}
+
+.hero h1 .line:nth-child(2) span{
+animation-delay:.18s;
+color:var(--gold2);
+font-style:italic
+}
+
+.hero-desc{
+max-width:450px;
+color:#d0ccc2;
+font-size:clamp(.92rem,1.2vw,1.05rem);
+line-height:1.85;
+opacity:0;
+animation:riseIn .9s 1.7s forwards
+}
+
+.hero-buttons{
+display:flex;
+gap:13px;
+flex-wrap:wrap;
+margin-top:32px;
+opacity:0;
+animation:riseIn .9s 1.9s forwards
+}
+
+.hero-meta{
+position:absolute;
+z-index:3;
+right:4%;
+bottom:90px;
+writing-mode:vertical-rl;
+display:flex;
+align-items:center;
+gap:14px;
+color:rgba(244,239,229,.72);
+font-size:.6rem;
+letter-spacing:.22em;
+text-transform:uppercase
+}
+
+.hero-meta:before{
+content:"";
+height:55px;
+width:1px;
+background:var(--gold)
+}
+
+.hero-bottom{
+position:absolute;
+z-index:3;
+bottom:31px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+align-items:center;
+gap:14px;
+color:var(--muted);
+font-size:.58rem;
+letter-spacing:.22em;
+text-transform:uppercase
+}
+
+.scroll-line{
+height:1px;
+width:45px;
+background:var(--gold);
+position:relative;
+overflow:hidden
+}
+
+.scroll-line:after{
+content:"";
+position:absolute;
+inset:0;
+background:#fff;
+transform:translateX(-100%);
+animation:lineTravel 1.8s infinite
+}
+
+@keyframes heroZoom{
+to{transform:scale(1)}
+}
+
+@keyframes textUp{
+to{transform:translateY(0)}
+}
+
+@keyframes riseIn{
+to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes lineTravel{
+to{transform:translateX(100%)}
+}
+
+/* Property image effects */
+.image-frame:hover img{transform:scale(1.065);filter:brightness(1.08)}
+.image-frame:after{content:"";position:absolute;inset:0;border:1px solid rgba(215,184,120,0);transition:border-color .5s;pointer-events:none}
+.image-frame:hover:after{border-color:rgba(215,184,120,.55)}
+
+/* Properties */
+.featured{background:var(--black)}
+.property-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.property-card{background:var(--panel);border:1px solid rgba(215,184,120,.12);transition:transform .45s var(--ease),border-color .35s;transform-style:preserve-3d;will-change:transform}
+.property-card:hover{border-color:rgba(215,184,120,.5)}
+.property-image{height:285px;position:relative}
+.property-image img{filter:saturate(.82)}
+.property-badge{position:absolute;top:17px;left:17px;padding:7px 10px;background:rgba(8,8,7,.76);backdrop-filter:blur(8px);color:var(--gold2);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;border:1px solid rgba(215,184,120,.3)}
+.property-fav{position:absolute;top:14px;right:14px;width:37px;height:37px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(8,8,7,.48);cursor:pointer;transition:background .25s,color .25s}
+.property-fav:hover,.property-fav.active{background:var(--gold);color:var(--black)}
+.property-info{padding:22px}
+.property-location{color:var(--gold);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase}
+.property-info h3{font:400 1.35rem/1.35 var(--serif);margin:8px 0 13px}
+.property-specs{display:flex;gap:15px;flex-wrap:wrap;color:var(--muted);font-size:.72rem;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.property-specs span{display:flex;align-items:center;gap:6px}
+.property-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:17px}
+.price{font:400 1.22rem var(--serif);color:var(--gold2)}
+.view-link{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;display:flex;align-items:center;gap:8px}
+.view-link span{color:var(--gold);transition:transform .3s}
+.view-link:hover span{transform:translateX(4px)}
+.no-results{display:none;color:var(--muted);padding:50px;text-align:center;border:1px solid var(--line);grid-column:1/-1}
+.center-action{text-align:center;margin-top:42px}
+
+/* Editorial story */
+.story{background:#11110f;overflow:hidden}
+.story-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:9%}
+.story-visual{position:relative;min-height:580px}
+.story-main-image{position:absolute;inset:0 12% 8% 0}
+.story-main-image img{object-position:center}
+.story-small-image{position:absolute;right:0;bottom:0;width:44%;height:44%;border:8px solid #11110f}
+.story-stamp{position:absolute;left:-22px;top:45px;width:104px;height:104px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;background:rgba(8,8,7,.8);color:var(--gold);text-align:center;font:1rem var(--serif);line-height:1.25;transform:rotate(-12deg)}
+.story-stamp small{display:block;font:.48rem var(--sans);letter-spacing:.15em;text-transform:uppercase}
+.story-copy .section-title{margin-bottom:25px}
+.story-copy>p{color:var(--muted);font-size:.92rem;line-height:1.9;margin-bottom:18px}
+.story-points{display:grid;grid-template-columns:1fr 1fr;gap:19px;margin:30px 0}
+.story-point{border-top:1px solid var(--line);padding-top:14px}
+.story-point strong{display:block;font:1.3rem var(--serif);color:var(--gold2);margin-bottom:4px}
+.story-point span{color:var(--muted);font-size:.72rem}
+
+/* Categories */
+.collections{background:var(--black)}
+.collection-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr;grid-template-rows:240px 240px;gap:17px}
+.collection-card{position:relative;overflow:hidden;isolation:isolate}
+.collection-card:first-child{grid-row:span 2}
+.collection-card img{position:absolute;inset:0;z-index:-2;transition:transform 1.2s var(--ease);filter:brightness(.72) saturate(.8)}
+.collection-card:hover img{transform:scale(1.08)}
+.collection-card:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(0,0,0,.83),transparent 75%)}
+.collection-content{position:absolute;left:23px;right:20px;bottom:23px}
+.collection-content small{color:var(--gold2);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
+.collection-content h3{font:1.55rem var(--serif);margin-top:4px}
+.collection-content span{display:inline-block;color:var(--gold);font-size:.7rem;margin-top:8px;transition:transform .3s}
+.collection-card:hover .collection-content span{transform:translateX(5px)}
+
+/* Numbers */
+.numbers{padding:70px 0;background:#0e0e0c;border-block:1px solid var(--line)}
+.number-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.number-item{text-align:center;padding:10px 18px;border-right:1px solid var(--line)}
+.number-item:last-child{border:0}
+.number-value{font:400 clamp(2.2rem,4vw,3.8rem)/1.1 var(--serif);color:var(--gold2)}
+.number-item p{font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+
+/* Testimonials */
+.testimonials{background:var(--panel)}
+.testimonial-shell{max-width:900px;margin:auto;text-align:center}
+.quote-mark{font:5rem/.8 var(--serif);color:var(--gold);opacity:.8}
+.quote-text{font:400 clamp(1.4rem,3vw,2.5rem)/1.5 var(--serif);margin:28px auto;max-width:850px}
+.quote-person{display:flex;align-items:center;justify-content:center;gap:13px;margin-top:28px}
+.avatar{width:45px;height:45px;border-radius:50%;overflow:hidden;border:1px solid var(--gold)}
+.avatar img{object-position:center 30%}
+.person-details{text-align:left}
+.person-details strong{display:block;font-size:.8rem;font-weight:500}
+.person-details span{font-size:.68rem;color:var(--gold)}
+.testimonial-controls{display:flex;justify-content:center;gap:10px;margin-top:30px}
+.round-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:transparent;cursor:pointer;transition:background .25s,color .25s}
+.round-btn:hover{background:var(--gold);color:var(--black)}
+
+/* CTA and footer */
+.final-cta{position:relative;overflow:hidden;padding:110px 0;text-align:center;background:#11110e}
+.final-cta:before{content:"";position:absolute;width:650px;height:650px;border-radius:50%;border:1px solid rgba(215,184,120,.1);left:50%;top:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 70px rgba(215,184,120,.018),0 0 0 140px rgba(215,184,120,.012)}
+.final-cta-inner{position:relative;z-index:1}
+.final-cta .section-title{margin:17px auto 20px;max-width:850px}
+.final-cta p{max-width:510px;margin:0 auto;color:var(--muted);font-size:.9rem}
+.final-cta .btn{margin-top:30px}
+.footer{padding:62px 0 25px;background:#070706;border-top:1px solid var(--line)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:45px}
+.footer-about p{max-width:280px;color:var(--muted);font-size:.78rem;line-height:1.9;margin-top:20px}
+.footer-col h4{font-size:.68rem;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:19px}
+.footer-col a,.footer-col p{display:block;font-size:.76rem;color:var(--muted);margin:11px 0;transition:color .25s}
+.footer-col a:hover{color:var(--gold2)}
+.socials{display:flex;gap:9px;margin-top:20px}
+.socials a{width:35px;height:35px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:.7rem;color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;gap:20px;border-top:1px solid rgba(215,184,120,.13);padding-top:20px;color:#77746c;font-size:.65rem}
+.footer-bottom a{transition:color .25s}.footer-bottom a:hover{color:var(--gold)}
+
+/* Floating contact */
+.whatsapp{position:fixed;z-index:80;right:25px;bottom:24px;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#111;box-shadow:0 8px 30px rgba(0,0,0,.35);transition:transform .3s,box-shadow .3s}
+.whatsapp:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 10px 35px rgba(215,184,120,.2)}
+.whatsapp svg{width:24px;height:24px;fill:currentColor}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:500;display:none;place-items:center;padding:22px;background:rgba(0,0,0,.78);backdrop-filter:blur(12px)}
+.modal.open{display:grid}
+.modal-card{width:min(580px,100%);max-height:90svh;overflow:auto;background:#11110f;border:1px solid var(--line);padding:30px;position:relative;animation:modalIn .35s var(--ease)}
+@keyframes modalIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.modal-close{position:absolute;right:18px;top:14px;border:0;background:none;color:var(--gold);font-size:1.6rem;cursor:pointer}
+.modal h3{font:2rem var(--serif);margin:8px 0 18px}
+.modal p{color:var(--muted);font-size:.84rem;margin-bottom:15px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.form-field.full{grid-column:1/-1}
+.form-field label{font-size:.64rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase}
+.form-field input,.form-field textarea,.form-field select{background:#080807;border:1px solid var(--line);color:var(--cream);padding:12px;outline:none;width:100%}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--gold)}
+.form-field textarea{min-height:100px;resize:vertical}
+.form-note{font-size:.7rem;color:var(--muted);margin-top:10px}
+  /* Responsive */
+@media(max-width:980px){
+ .nav-links{gap:17px}.nav-links a{font-size:.66rem}.nav-cta{display:none}
+ .property-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .story-grid{gap:5%}.story-visual{min-height:500px}
+ .collection-grid{grid-template-columns:1fr 1fr;grid-template-rows:250px 220px}.collection-card:first-child{grid-row:span 2}
+ .footer-grid{grid-template-columns:1.2fr 1fr 1fr;gap:30px}.footer-about{grid-column:1/-1}
+}
+@media(max-width:720px){
+ .wrap{width:min(100% - 34px,560px)}
+ .section{padding:78px 0}.section-head{display:block;margin-bottom:30px}.section-copy{margin-top:17px}
+ .site-header{padding:14px 0}.site-header.scrolled{padding:10px 0}
+ .brand-mark{width:32px;height:32px}.brand-text{font-size:.87rem}
+ .nav-links{display:none}.nav-actions{margin-left:auto}.menu-toggle{display:block}
+ .mobile-panel{position:absolute;top:100%;left:0;width:100%;padding:10px 22px 24px;background:rgba(8,8,7,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:0;opacity:0;visibility:hidden;transform:translateY(-8px);transition:.3s}
+ .mobile-panel.open{opacity:1;visibility:visible;transform:translateY(0)}
+ .mobile-panel a{padding:14px 4px;border-bottom:1px solid rgba(215,184,120,.12);font-size:.8rem}
+ .mobile-panel .mobile-cta{margin-top:16px;text-align:center;background:var(--gold);color:var(--black)}
+ .hero{min-height:720px;height:94svh;max-height:900px}
+ .hero-image img{object-position:59% center}.hero-image:after{background:linear-gradient(90deg,rgba(5,5,4,.79),rgba(5,5,4,.32)),linear-gradient(0deg,var(--black),transparent 40%)}
+ .hero-content{padding-top:80px}.hero h1{font-size:clamp(3.35rem,13vw,5.7rem);margin:23px 0}
+ .hero-desc{max-width:380px;font-size:.9rem}.hero-meta{display:none}.hero-bottom{bottom:23px}
+ .search-bar{grid-template-columns:1fr 1fr;padding:20px 0;gap:18px}
+ .search-field{padding:0 10px;border-right:0}.search-field:first-child{padding-left:10px}
+ .search-field:nth-child(odd){border-right:1px solid var(--line)}
+ .search-submit{grid-column:1/-1;margin:0;width:100%}
+ .property-grid{grid-template-columns:1fr;gap:18px}.property-image{height:280px}
+ .story-grid{grid-template-columns:1fr;gap:38px}.story-visual{min-height:440px}
+ .story-stamp{left:-5px;width:85px;height:85px}
+ .collection-grid{grid-template-columns:1fr 1fr;grid-template-rows:260px 190px 190px;gap:10px}
+ .collection-card:first-child{grid-column:1/-1;grid-row:auto}
+ .collection-content{left:15px;bottom:15px}.collection-content h3{font-size:1.25rem}
+ .number-grid{grid-template-columns:1fr 1fr;row-gap:26px}.number-item:nth-child(2){border-right:0}.number-item:nth-child(3){border-right:1px solid var(--line)}
+ .numbers{padding:48px 0}
+ .final-cta{padding:78px 0}
+ .footer-grid{grid-template-columns:1fr 1fr;gap:28px}.footer-about{grid-column:1/-1}.footer-col:last-child{grid-column:1/-1}
+ .footer-bottom{flex-direction:column;gap:10px}
+ .cursor-glow{display:none}
+}
+@media(max-width:420px){
+ .wrap{width:calc(100% - 28px)}.hero h1{font-size:3.15rem}
+ .hero-buttons .btn{width:100%}.story-visual{min-height:360px}
+ .property-bottom{align-items:flex-start;flex-direction:column}
+ .collection-grid{grid-template-rows:220px 170px 170px}
+ .form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}
+}
+@media(hover:none),(pointer:coarse){.cursor-glow{display:none}.property-card{transform:none!important}.btn:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- Cinematic app-style intro -->
+<div class="loader" id="loader" aria-label="Loading Haven Estates">
+  <div class="loader-grain"></div>
+  <div class="loader-inner">
+    <svg class="loader-house" viewBox="0 0 360 245" aria-hidden="true">
+      <path class="house-glow" d="M38 180 L180 42 L322 180 M72 165 V218 H288 V165 M115 218 V145 H165 V218 M195 218 V145 H245 V218 M180 42 V218 M38 180 H322 M115 145 L180 105 L245 145"/>
+      <path class="house-line" d="M38 180 L180 42 L322 180 M72 165 V218 H288 V165 M115 218 V145 H165 V218 M195 218 V145 H245 V218 M180 42 V218 M38 180 H322 M115 145 L180 105 L245 145 M90 164 L180 78 L270 164 M136 125 V100 H157 V105 M203 105 V100 H224 V125"/>
+    </svg>
+    <div class="loader-brand">HAVEN ESTATES</div>
+    <div class="loader-sub">A more considered way to live</div>
+    <div class="loader-bottom">
+      <div class="loader-status"><span id="loaderText">Preparing your experience</span><span id="loaderPercent">00%</span></div>
+      <div class="loader-track"><div class="loader-progress" id="loaderProgress"></div></div>
+    </div>
+  </div>
+</div>
+
+<canvas id="particles" aria-hidden="true"></canvas>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+<div id="ambient" aria-hidden="true"></div>
+
+<header class="site-header" id="header">
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="Haven Estates home">
+      <span class="brand-mark"><span>H</span></span>
+      <span class="brand-text">HAVEN ESTATES<small>EXCEPTIONAL LIVING</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#home">Home</a><a href="#properties">Properties</a><a href="#story">Our Story</a><a href="#collections">Collections</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn nav-cta" href="#contact">Arrange a viewing <span class="arrow">↗</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="mobile-panel" id="mobilePanel" aria-label="Mobile navigation">
+    <a href="#home">Home</a><a href="#properties">Properties</a><a href="#story">Our Story</a><a href="#collections">Collections</a><a href="#contact">Contact</a>
+    <a class="mobile-cta" href="#contact">Arrange a viewing ↗</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-image"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=90" alt="Contemporary luxury residence with glass walls and warm architectural lighting" fetchpriority="high"></div>
+  <div class="hero-light" id="heroLight"></div>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="eyebrow">A new perspective on luxury</div>
+      <h1><span class="line"><span>Find your</span></span><span class="line"><span>extraordinary.</span></span></h1>
+      <p class="hero-desc">Exceptional homes for people who see beyond the ordinary. Discover a more considered way to live, invest, and belong.</p>
+      <div class="hero-buttons"><a class="btn btn-gold" href="#properties">Explore residences <span class="arrow">↗</span></a><a class="btn" href="#story">Discover Haven <span class="arrow">→</span></a></div>
+    </div>
+  </div>
+  <div class="hero-meta">Curated homes · Considered living</div>
+  <a class="hero-bottom" href="#properties"><span class="scroll-line"></span> Scroll to discover</a>
+</section>
+
+<section class="search-wrap" aria-label="Find a property">
+  <form class="wrap search-bar" id="searchForm">
+    <div class="search-field"><label for="locationSearch">Location</label><input id="locationSearch" type="search" placeholder="City or neighbourhood"></div>
+    <div class="search-field"><label for="typeSearch">Property type</label><select id="typeSearch"><option value="">All residences</option><option value="Villa">Private villa</option><option value="Apartment">Apartment</option><option value="Penthouse">Penthouse</option><option value="Estate">Estate</option></select></div>
+    <div class="search-field"><label for="priceSearch">Maximum price</label><select id="priceSearch"><option value="">Any budget</option><option value="500000">Up to $500,000</option><option value="1000000">Up to $1,000,000</option><option value="2000000">Up to $2,000,000</option><option value="5000000">Up to $5,000,000</option></select></div>
+    <button class="btn btn-gold search-submit" type="submit">Find a home <span class="arrow">↗</span></button>
+  </form>
+</section>
+
+<section class="section featured" id="properties">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="eyebrow">A considered collection</div><h2 class="section-title">Exceptional homes.<br><em>Distinctive lives.</em></h2></div>
+      <p class="section-copy">Every residence in our collection is selected for its character, craftsmanship, and ability to make everyday living feel extraordinary.</p>
+    </div>
+    <div class="property-grid" id="propertyGrid">
+            <article class="property-card reveal" data-type="Villa" data-location="Malibu California" data-price="2850000">
+        <div class="property-image image-frame"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1000&q=85" alt="Modern hillside villa with an infinity pool" loading="lazy"><span class="property-badge">Signature collection</span><button class="property-fav" aria-label="Save Oceanview Villa" type="button">♡</button></div>
+        <div class="property-info"><div class="property-location">Malibu, California</div><h3>Oceanview Villa</h3><div class="property-specs"><span>⌂ 4 beds</span><span>♧ 4 baths</span><span>3,850 sq ft</span></div><div class="property-bottom"><div class="price">$2,850,000</div><a class="view-link details-link" href="#contact" data-property="Oceanview Villa">Explore residence <span>↗</span></a></div></div>
+      </article>
+
+      <article class="property-card reveal reveal-delay-1" data-type="Penthouse" data-location="Manhattan New York" data-price="4200000">
+        <div class="property-image image-frame"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85" alt="Elegant modern penthouse interior with floor-to-ceiling windows" loading="lazy"><span class="property-badge">Private listing</span><button class="property-fav" aria-label="Save The Glasshouse" type="button">♡</button></div>
+        <div class="property-info"><div class="property-location">Manhattan, New York</div><h3>The Glasshouse</h3><div class="property-specs"><span>⌂ 3 beds</span><span>♧ 3 baths</span><span>2,700 sq ft</span></div><div class="property-bottom"><div class="price">$4,200,000</div><a class="view-link details-link" href="#contact" data-property="The Glasshouse">Explore residence <span>↗</span></a></div></div>
+      </article>
+
+      <article class="property-card reveal reveal-delay-2" data-type="Estate" data-location="Beverly Hills California" data-price="6750000">
+        <div class="property-image image-frame"><img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1000&q=85" alt="Grand contemporary estate framed by mature landscaping" loading="lazy"><span class="property-badge">New to market</span><button class="property-fav" aria-label="Save The Aurelian Estate" type="button">♡</button></div>
+        <div class="property-info"><div class="property-location">Beverly Hills, California</div><h3>The Aurelian Estate</h3><div class="property-specs"><span>⌂ 6 beds</span><span>♧ 7 baths</span><span>7,200 sq ft</span></div><div class="property-bottom"><div class="price">$6,750,000</div><a class="view-link details-link" href="#contact" data-property="The Aurelian Estate">Explore residence <span>↗</span></a></div></div>
+      </article>
+
+      <article class="property-card reveal" data-type="Apartment" data-location="Lisbon Portugal" data-price="685000">
+        <div class="property-image image-frame"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1000&q=85" alt="Warm contemporary apartment with premium finishes" loading="lazy"><span class="property-badge">Design residence</span><button class="property-fav" aria-label="Save Casa Sol" type="button">♡</button></div>
+        <div class="property-info"><div class="property-location">Lisbon, Portugal</div><h3>Casa Sol</h3><div class="property-specs"><span>⌂ 2 beds</span><span>♧ 2 baths</span><span>1,650 sq ft</span></div><div class="property-bottom"><div class="price">$685,000</div><a class="view-link details-link" href="#contact" data-property="Casa Sol">Explore residence <span>↗</span></a></div></div>
+      </article>
+
+      <article class="property-card reveal reveal-delay-1" data-type="Villa" data-location="Tuscany Italy" data-price="1950000">
+        <div class="property-image image-frame"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85" alt="Architect-designed villa surrounded by greenery" loading="lazy"><span class="property-badge">Editor's choice</span><button class="property-fav" aria-label="Save Villa Sereno" type="button">♡</button></div>
+        <div class="property-info"><div class="property-location">Tuscany, Italy</div><h3>Villa Sereno</h3><div class="property-specs"><span>⌂ 4 beds</span><span>♧ 3 baths</span><span>3,200 sq ft</span></div><div class="property-bottom"><div class="price">$1,950,000</div><a class="view-link details-link" href="#contact" data-property="Villa Sereno">Explore residence <span>↗</span></a></div></div>
+      </article>
+
+      <article class="property-card reveal reveal-delay-2" data-type="Penthouse" data-location="Dubai United Arab Emirates" data-price="3150000">
+        <div class="property-image image-frame"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85" alt="Refined luxury residence with sculptural modern architecture" loading="lazy"><span class="property-badge">Limited collection</span><button class="property-fav" aria-label="Save The Meridian" type="button">♡</button></div>
+        <div class="property-info"><div class="property-location">Dubai, UAE</div><h3>The Meridian</h3><div class="property-specs"><span>⌂ 3 beds</span><span>♧ 4 baths</span><span>2,950 sq ft</span></div><div class="property-bottom"><div class="price">$3,150,000</div><a class="view-link details-link" href="#contact" data-property="The Meridian">Explore residence <span>↗</span></a></div></div>
+      </article>
+
+      <div class="no-results" id="noResults">No residences match those filters. Try a different location or budget.</div>
+    </div>
+    <div class="center-action reveal"><button class="btn" id="resetFilters" type="button">View all residences <span class="arrow">↗</span></button></div>
+  </div>
+</section>
+
+<section class="section story" id="story">
+  <div class="wrap story-grid">
+    <div class="story-visual reveal">
+      <div class="story-main-image image-frame"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85" alt="Warm minimalist luxury living space with natural textures" loading="lazy"></div>
+      <div class="story-small-image image-frame"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=700&q=85" alt="Quiet architectural detail in a contemporary residence" loading="lazy"></div>
+      <div class="story-stamp">Since<br>2012<small>Considered living</small></div>
+    </div>
+    <div class="story-copy reveal reveal-delay-1">
+      <div class="eyebrow">The Haven perspective</div>
+      <h2 class="section-title">A home is more<br>than an <em>address.</em></h2>
+      <p>We believe the right home changes the way you experience life. It is where architecture meets feeling, where thoughtful details become daily rituals, and where your next chapter begins.</p>
+      <p>Our approach is personal by design. We listen carefully, curate thoughtfully, and guide every decision with discretion, clarity, and a deep appreciation for exceptional places.</p>
+      <div class="story-points">
+        <div class="story-point"><strong>01</strong><span>Personalised property guidance</span></div>
+        <div class="story-point"><strong>02</strong><span>Considered, curated collections</span></div>
+        <div class="story-point"><strong>03</strong><span>Discretion at every step</span></div>
+        <div class="story-point"><strong>04</strong><span>Long-term client relationships</span></div>
+      </div>
+      <a class="btn" href="#contact">Meet your property partner <span class="arrow">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section collections" id="collections">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="eyebrow">Find your kind of extraordinary</div><h2 class="section-title">Spaces with a <em>point of view.</em></h2></div>
+      <p class="section-copy">From private retreats to remarkable city residences, explore a collection shaped around the way you want to live.</p>
+    </div>
+    <div class="collection-grid">
+      <a class="collection-card reveal" href="#properties" data-collection="Villa"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85" alt="Private villa with a pool" loading="lazy"><div class="collection-content"><small>01 / Private retreats</small><h3>Villas & Estates</h3><span>Explore collection ↗</span></div></a>
+      <a class="collection-card reveal reveal-delay-1" href="#properties" data-collection="Penthouse"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85" alt="Luxury penthouse interior" loading="lazy"><div class="collection-content"><small>02 / Elevated living</small><h3>Penthouses</h3><span>Explore collection ↗</span></div></a>
+      <a class="collection-card reveal reveal-delay-2" href="#properties" data-collection="Apartment"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85" alt="Contemporary apartment interior" loading="lazy"><div class="collection-content"><small>03 / City living</small><h3>Residences</h3><span>Explore collection ↗</span></div></a>
+      <a class="collection-card reveal reveal-delay-1" href="#properties" data-collection="Estate"><img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=900&q=85" alt="Landscaped modern estate" loading="lazy"><div class="collection-content"><small>04 / Rare finds</small><h3>Private estates</h3><span>Explore collection ↗</span></div></a>
+      <a class="collection-card reveal reveal-delay-2" href="#properties" data-collection=""><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85" alt="Modern architectural home at dusk" loading="lazy"><div class="collection-content"><small>05 / Thoughtfully selected</small><h3>New & Noteworthy</h3><span>Explore collection ↗</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="numbers">
+  <div class="wrap number-grid">
+    <div class="number-item reveal"><div class="number-value" data-count="12">0</div><p>Years of perspective</p></div>
+    <div class="number-item reveal reveal-delay-1"><div class="number-value" data-count="480">0</div><p>Homes thoughtfully placed</p></div>
+    <div class="number-item reveal reveal-delay-2"><div class="number-value" data-count="18">0</div><p>Markets explored</p></div>
+    <div class="number-item reveal reveal-delay-3"><div class="number-value" data-count="98">0</div><p>Client satisfaction %</p></div>
+  </div>
+</section>
+
+<section class="section testimonials">
+  <div class="wrap">
+    <div class="testimonial-shell reveal">
+      <div class="eyebrow" style="justify-content:center">Words from our clients</div>
+      <div class="quote-mark">“</div>
+      <div class="quote-text" id="quoteText">Haven understood what we were looking for before we could quite put it into words. The entire experience felt thoughtful, personal, and refreshingly effortless.</div>
+      <div class="quote-person">
+        <div class="avatar"><img id="quoteAvatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="" loading="lazy"></div>
+        <div class="person-details"><strong id="quoteName">Alexander Morgan</strong><span id="quoteRole">Homeowner · California</span></div>
+      </div>
+      <div class="testimonial-controls"><button class="round-btn" id="prevQuote" aria-label="Previous testimonial">←</button><button class="round-btn" id="nextQuote" aria-label="Next testimonial">→</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="contact">
+  <div class="wrap final-cta-inner reveal">
+    <div class="eyebrow" style="justify-content:center">Your next chapter starts here</div>
+    <h2 class="section-title">The right place can<br>change <em>everything.</em></h2>
+    <p>Tell us what home means to you. We'll help you discover a place that feels unmistakably yours.</p>
+    <button class="btn btn-gold" id="openEnquiry">Begin a conversation <span class="arrow">↗</span></button>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-about"><a class="brand" href="#home"><span class="brand-mark"><span>H</span></span><span class="brand-text">HAVEN ESTATES<small>EXCEPTIONAL LIVING</small></span></a><p>Exceptional homes for people who see beyond the ordinary. A more considered way to live, invest, and belong.</p><div class="socials"><a href="#contact" aria-label="Instagram">ig</a><a href="#contact" aria-label="Facebook">f</a><a href="#contact" aria-label="Pinterest">p</a></div></div>
+      <div class="footer-col"><h4>Explore</h4><a href="#properties">Featured properties</a><a href="#collections">Our collections</a><a href="#story">Our story</a><a href="#contact">Arrange a viewing</a></div>
+      <div class="footer-col"><h4>Collections</h4><a href="#properties">Villas & estates</a><a href="#properties">Penthouses</a><a href="#properties">City residences</a><a href="#properties">Private listings</a></div>
+      <div class="footer-col"><h4>Get in touch</h4><p>By appointment, wherever you are.</p><a href="mailto:hello@havenestates.example">hello@havenestates.example</a><a href="tel:+10000000000">+1 (000) 000-0000</a><a href="#contact">Request a consultation ↗</a></div>
+    </div>
+    <div class="footer-bottom"><span>© <span id="year"></span> Haven Estates. Demo concept for portfolio use.</span><span><a href="#contact">Privacy</a> &nbsp;·&nbsp; <a href="#contact">Terms</a> &nbsp;·&nbsp; Crafted with intention.</span></div>
+  </div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp — configure your number before publishing">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.8 11.8 0 0 0 12.13 0C5.58 0 .24 5.34.24 11.9c0 2.1.55 4.16 1.6 5.98L.14 24l6.28-1.65a11.9 11.9 0 0 0 5.7 1.45h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.51-8.42ZM12.13 21.8a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.73.98 1-3.64-.24-.37a9.85 9.85 0 0 1-1.51-5.28c0-5.46 4.44-9.9 9.9-9.9a9.82 9.82 0 0 1 7 2.9 9.83 9.83 0 0 1 2.9 7c0 5.46-4.45 9.9-9.92 9.9Zm5.43-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.66-2.07-.18-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.66-.51h-.56c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg>
+</a>
+
+<div class="modal" id="enquiryModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <button class="modal-close" id="closeEnquiry" aria-label="Close enquiry form">×</button>
+    <div class="eyebrow">A personal introduction</div>
+    <h3 id="modalTitle">Let's find your place.</h3>
+    <p>Tell us a little about what you're looking for. This demo form validates in the browser; connect a form service or backend to receive real enquiries.</p>
+    <form id="enquiryForm">
+      <div class="form-grid">
+        <div class="form-field"><label for="name">Your name</label><input id="name" name="name" required placeholder="Full name"></div>
+        <div class="form-field"><label for="email">Email address</label><input id="email" name="email" type="email" required placeholder="you@example.com"></div>
+        <div class="form-field"><label for="interest">I'm interested in</label><select id="interest" name="interest"><option>Buying a property</option><option>Renting a property</option><option>Property investment</option><option>Selling a property</option></select></div>
+        <div class="form-field"><label for="budget">Approximate budget</label><select id="budget" name="budget"><option>Not decided</option><option>Under $500,000</option><option>$500,000–$1 million</option><option>$1–3 million</option><option>$3 million+</option></select></div>
+        <div class="form-field full"><label for="message">Anything else we should know?</label><textarea id="message" name="message" placeholder="Preferred location, style, timing..."></textarea></div>
+      </div>
+      <button class="btn btn-gold" type="submit">Prepare enquiry <span class="arrow">↗</span></button>
+      <div class="form-note" id="formNote" aria-live="polite">Demo only — no information is sent or stored.</div>
+    </form>
+  </div>
+</div>
+<script>
+(() => {
+  "use strict";
+
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+
+  // App-style opening sequence
+  const loader = $("#loader");
+  const progress = $("#loaderProgress");
+  const percent = $("#loaderPercent");
+  const status = $("#loaderText");
+  const statuses = [
+    "Preparing your experience",
+    "Curating exceptional spaces",
+    "Opening the doors"
+  ];
+
+  let amount = 0;
+
+  const progressTimer = setInterval(() => {
+    amount += Math.random() * 8 + 3;
+
+    if (amount > 100) amount = 100;
+
+    progress.style.width = amount + "%";
+    percent.textContent = String(Math.floor(amount)).padStart(2, "0") + "%";
+
+    status.textContent =
+      amount < 38 ? statuses[0] :
+      amount < 76 ? statuses[1] :
+      statuses[2];
+
+    if (amount >= 100) {
+      clearInterval(progressTimer);
+
+      setTimeout(() => {
+        loader.classList.add("done");
+        document.body.classList.remove("locked");
+        setTimeout(() => loader.remove(), 1000);
+      }, 300);
+    }
+  }, reduceMotion ? 15 : 95);
+
+  window.addEventListener("load", () => {
+    if (amount < 82) amount = 82;
+  }, { once: true });
+
+  // Header and mobile navigation
+  const header = $("#header");
+  const toggle = $("#menuToggle");
+  const panel = $("#mobilePanel");
+
+  const updateHeader = () => {
+    header.classList.toggle("scrolled", window.scrollY > 30);
+  };
+
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
+
+  toggle.addEventListener("click", () => {
+    const open = panel.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute(
+      "aria-label",
+      open ? "Close navigation menu" : "Open navigation menu"
+    );
+  });
+
+  $$("#mobilePanel a").forEach(a => {
+    a.addEventListener("click", () => {
+      panel.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  // Scroll reveal animations
+  const revealItems = $$(".reveal");
+
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.13,
+      rootMargin: "0px 0px -35px 0px"
+    });
+
+    revealItems.forEach(el => observer.observe(el));
+  } else {
+    revealItems.forEach(el => el.classList.add("visible"));
+  }
+
+  // Mouse-following light and property card tilt
+  const glow = $("#cursorGlow");
+  const heroLight = $("#heroLight");
+
+  if (!coarsePointer && !reduceMotion) {
+    let mx = innerWidth / 2;
+    let my = innerHeight / 2;
+    let gx = mx;
+    let gy = my;
+
+    window.addEventListener("pointermove", e => {
+      mx = e.clientX;
+      my = e.clientY;
+    }, { passive: true });
+
+    const follow = () => {
+      gx += (mx - gx) * 0.12;
+      gy += (my - gy) * 0.12;
+
+      glow.style.transform =
+        `translate(${gx}px,${gy}px) translate(-50%,-50%)`;
+
+      if (heroLight) {
+        heroLight.style.background =
+          `radial-gradient(ellipse 380px 320px at ${mx}px ${my}px, rgba(215,184,120,.14), transparent 72%)`;
+      }
+
+      requestAnimationFrame(follow);
+    };
+
+    requestAnimationFrame(follow);
+
+    $$(".property-card").forEach(card => {
+      card.addEventListener("pointermove", e => {
+        if (e.pointerType !== "mouse") return;
+
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+
+        card.style.transform =
+          `perspective(1000px) rotateX(${(0.5-y)*3.5}deg) rotateY(${(x-.5)*4}deg) translateY(-3px)`;
+      });
+
+      card.addEventListener("pointerleave", () => {
+        card.style.transform = "";
+      });
+    });
+  }
+
+  // Floating gold particles
+  const canvas = $("#particles");
+  const ctx = canvas.getContext("2d");
+
+  let w = 0;
+  let h = 0;
+  let dpr = 1;
+  let particles = [];
+
+  function resizeCanvas() {
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    w = innerWidth;
+    h = innerHeight;
+
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = reduceMotion ? 0 : (coarsePointer ? 18 : 42);
+
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.5 + 0.35,
+      a: Math.random() * 0.5 + 0.12,
+      v: Math.random() * 0.22 + 0.05,
+      phase: Math.random() * 6.28
+    }));
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, w, h);
+
+    particles.forEach(p => {
+      p.y -= p.v;
+      p.phase += 0.012;
+      p.x += Math.sin(p.phase) * 0.12;
+
+      if (p.y < -4) {
+        p.y = h + 4;
+        p.x = Math.random() * w;
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle =
+        `rgba(215,184,120,${p.a * (0.7 + 0.3 * Math.sin(p.phase))})`;
+      ctx.fill();
+    });
+
+    if (!reduceMotion) requestAnimationFrame(drawParticles);
+  }
+
+  resizeCanvas();
+
+  if (!reduceMotion) requestAnimationFrame(drawParticles);
+
+  window.addEventListener("resize", resizeCanvas, { passive: true });
+
+  // Pointer ripples and floating bubbles
+  function makeRipple(x, y, small = false) {
+    const el = document.createElement("span");
+    el.className = "ripple";
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+
+    if (small) {
+      el.style.width = "8px";
+      el.style.height = "8px";
+    }
+
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 900);
+  }
+
+  function makeBubbles(x, y, count = 5) {
+    if (reduceMotion) return;
+
+    for (let i = 0; i < count; i++) {
+      const b = document.createElement("span");
+      const size = 5 + Math.random() * 13;
+
+      b.className = "bubble";
+      b.style.width = size + "px";
+      b.style.height = size + "px";
+      b.style.left = (x + (Math.random() - 0.5) * 55) + "px";
+      b.style.top = (y + (Math.random() - 0.5) * 24) + "px";
+      b.style.setProperty("--dur", (1.1 + Math.random() * 0.9) + "s");
+      b.style.setProperty("--drift", ((Math.random() - 0.5) * 70) + "px");
+
+      document.body.appendChild(b);
+      setTimeout(() => b.remove(), 2200);
+    }
+  }
+
+  let lastTouchEffect = 0;
+
+  document.addEventListener("pointerdown", e => {
+    if (e.target.closest("input,textarea,select,button.menu-toggle")) return;
+
+    makeRipple(e.clientX, e.clientY, coarsePointer);
+
+    if (e.pointerType === "touch" || coarsePointer) {
+      makeBubbles(e.clientX, e.clientY, 6);
+    }
+  }, { passive: true });
+
+  document.addEventListener("pointermove", e => {
+    if (e.pointerType === "touch") {
+      const now = Date.now();
+
+      if (now - lastTouchEffect > 95) {
+        makeBubbles(e.clientX, e.clientY, 2);
+        lastTouchEffect = now;
+      }
+    }
+  }, { passive: true });
+
+  // Property filters
+  const cards = $$(".property-card");
+  const locationInput = $("#locationSearch");
+  const typeInput = $("#typeSearch");
+  const priceInput = $("#priceSearch");
+  const noResults = $("#noResults");
+
+  function filterProperties() {
+    const loc = locationInput.value.trim().toLowerCase();
+    const type = typeInput.value;
+    const max = Number(priceInput.value || Infinity);
+
+    let visible = 0;
+
+    cards.forEach(card => {
+      const matches =
+        card.dataset.location.toLowerCase().includes(loc) &&
+        (!type || card.dataset.type === type) &&
+        Number(card.dataset.price) <= max;
+
+      card.style.display = matches ? "" : "none";
+
+      if (matches) visible++;
+    });
+
+    noResults.style.display = visible ? "none" : "block";
+
+    $("#properties").scrollIntoView({
+      behavior: reduceMotion ? "auto" : "smooth"
+    });
+  }
+
+  $("#searchForm").addEventListener("submit", e => {
+    e.preventDefault();
+    filterProperties();
+  });
+
+  $("#resetFilters").addEventListener("click", () => {
+    locationInput.value = "";
+    typeInput.value = "";
+    priceInput.value = "";
+    filterProperties();
+  });
+
+  $$(".collection-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const type = card.dataset.collection;
+
+      typeInput.value = type;
+      locationInput.value = "";
+      priceInput.value = "";
+
+      setTimeout(filterProperties, 80);
+    });
+  });
+
+  // Favourite buttons
+  $$(".property-fav").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+
+      const active = btn.classList.toggle("active");
+      btn.textContent = active ? "♥" : "♡";
+      btn.setAttribute("aria-pressed", String(active));
+    });
+  });
+
+  // Animated statistics
+  const countEls = $$("[data-count]");
+
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    const countObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const el = entry.target;
+        const target = Number(el.dataset.count);
+        const start = performance.now();
+        const duration = 1300;
+
+        function tick(now) {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 4);
+
+          el.textContent =
+            Math.round(target * eased) + (target === 98 ? "%" : "+");
+
+          if (t < 1) requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+        countObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    countEls.forEach(el => countObserver.observe(el));
+  } else {
+    countEls.forEach(el => {
+      el.textContent = el.dataset.count +
+        (el.dataset.count === "98" ? "%" : "+");
+    });
+  }
+
+  // Testimonials carousel
+  const quotes = [
+    {
+      text: "Haven understood what we were looking for before we could quite put it into words. The entire experience felt thoughtful, personal, and refreshingly effortless.",
+      name: "Alexander Morgan",
+      role: "Homeowner · California",
+      img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
+    },
+    {
+      text: "Every detail was considered, from the first conversation to the moment we received our keys. It felt less like a transaction and more like having a trusted partner.",
+      name: "Olivia Bennett",
+      role: "Property buyer · New York",
+      img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
+    },
+    {
+      text: "The team listened, gave honest guidance, and found a home that fits the way our family really lives. We couldn't have asked for a more personal experience.",
+      name: "Daniel & Sophia Reed",
+      role: "Homeowners · Lisbon",
+      img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80"
+    }
+  ];
+
+  let quoteIndex = 0;
+
+  function showQuote(index) {
+    quoteIndex = (index + quotes.length) % quotes.length;
+    const q = quotes[quoteIndex];
+
+    const els = [
+      $("#quoteText"),
+      $("#quoteName"),
+      $("#quoteRole"),
+      $("#quoteAvatar")
+    ];
+
+    els.forEach(el => {
+      el.style.opacity = 0;
+      el.style.transform = "translateY(6px)";
+    });
+
+    setTimeout(() => {
+      $("#quoteText").textContent = q.text;
+      $("#quoteName").textContent = q.name;
+      $("#quoteRole").textContent = q.role;
+      $("#quoteAvatar").src = q.img;
+
+      els.forEach(el => {
+        el.style.transition = "opacity .35s,transform .35s";
+        el.style.opacity = 1;
+        el.style.transform = "translateY(0)";
+      });
+    }, 180);
+  }
+
+  $("#prevQuote").addEventListener("click", () => showQuote(quoteIndex - 1));
+  $("#nextQuote").addEventListener("click", () => showQuote(quoteIndex + 1));
+
+  // Demo enquiry modal
+  const modal = $("#enquiryModal");
+
+  const openModal = () => {
+    modal.classList.add("open");
+    document.body.classList.add("locked");
+    setTimeout(() => $("#name").focus(), 100);
+  };
+
+  const closeModal = () => {
+    modal.classList.remove("open");
+    document.body.classList.remove("locked");
+  };
+
+  $("#openEnquiry").addEventListener("click", openModal);
+  $("#closeEnquiry").addEventListener("click", closeModal);
+
+  modal.addEventListener("click", e => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && modal.classList.contains("open")) {
+      closeModal();
+    }
+  });
+
+  $$(".details-link").forEach(link => {
+    link.addEventListener("click", () => {
+      $("#message").value = "I'm interested in " + link.dataset.property + ".";
+      $("#interest").value = "Buying a property";
+      openModal();
+    });
+  });
+
+  $("#enquiryForm").addEventListener("submit", e => {
+    e.preventDefault();
+
+    $("#formNote").textContent =
+      "Thanks! The demo form is validated, but messages are not sent. Connect a form service or backend to receive enquiries.";
+
+    $("#formNote").style.color = "var(--gold2)";
+  });
+
+  $("#year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
